@@ -88,21 +88,21 @@
                     <p>Comparte la pantalla de este equipo ingresando el PIN de 4 dígitos generado en la pantalla de destino.</p>
                     
                     <div class="sender-form">
-                        <div class="input-pin-wrapper">
-                            <input type="text" id="room-code-input" placeholder="0000" maxlength="4" pattern="[0-9]*" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <button id="btn-send" class="btn btn-secondary">
-                                Conectar
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                    <polyline points="12 5 19 12 12 19"></polyline>
-                                </svg>
-                            </button>
+                        <div class="input-pin-container">
+                            <input type="text" id="room-code-input" placeholder="0000" maxlength="4" pattern="[0-9]*" inputmode="numeric" autocomplete="off" spellcheck="false" aria-label="PIN de 4 dígitos">
                         </div>
                         <label class="audio-toggle-label">
                             <input type="checkbox" id="chk-audio" checked>
                             <span class="checkbox-custom"></span>
                             <span>Transmitir audio del sistema / pestaña</span>
                         </label>
+                        <button id="btn-send" class="btn btn-secondary btn-full">
+                            <span>Conectar pantalla</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </button>
                     </div>
                 </div>
             </section>

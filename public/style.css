@@ -329,25 +329,24 @@ body {
 .sender-form {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.15rem;
 }
 
-.input-pin-wrapper {
-    display: flex;
-    gap: 0.75rem;
+.input-pin-container {
+    width: 100%;
 }
 
 input#room-code-input {
-    flex: 1;
+    width: 100%;
     background-color: var(--bg-base);
     border: 1px solid var(--border-medium);
     color: var(--text-primary);
     padding: 0.85rem 1rem;
     border-radius: var(--radius-sm);
-    font-size: 1.25rem;
+    font-size: 1.35rem;
     font-family: 'JetBrains Mono', monospace;
     font-weight: 700;
-    letter-spacing: 0.25em;
+    letter-spacing: 0.35em;
     text-align: center;
     outline: none;
     transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
@@ -360,7 +359,7 @@ input#room-code-input:focus {
 
 input#room-code-input::placeholder {
     color: var(--text-muted);
-    letter-spacing: 0.2em;
+    letter-spacing: 0.3em;
     font-weight: 500;
 }
 
@@ -731,13 +730,5 @@ video#remote-video.active {
     .room-actions {
         width: 100%;
         justify-content: space-between;
-    }
-
-    .input-pin-wrapper {
-        flex-direction: column;
-    }
-
-    .btn-secondary {
-        width: 100%;
     }
 }
