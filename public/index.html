@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CastWeb - Screen & Audio Mirroring</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <div class="app-wrapper">
+        <!-- Top Navigation Bar -->
+        <header class="app-header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                </div>
+                <span class="logo-title">CastWeb</span>
+                <span class="badge badge-subtle">WebRTC P2P</span>
+            </div>
+
+            <!-- Network Link Helper for Smart TVs & Phones -->
+            <div id="network-badge" class="network-badge" title="Haz clic para copiar el enlace local">
+                <span class="network-dot"></span>
+                <span class="network-label">Red Local:</span>
+                <code id="network-ip-display">Detectando IP...</code>
+                <button id="btn-copy-network" class="btn-icon" aria-label="Copiar dirección de red">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Hub View -->
+        <main id="main-menu" class="view active">
+            <section class="hero">
+                <div class="hero-badge">
+                    <span class="hero-badge-dot"></span>
+                    Transmisión en tiempo real sin latencia
+                </div>
+                <h1>Proyecta tu pantalla<br><span class="gradient-text">en cualquier dispositivo.</span></h1>
+                <p class="hero-desc">Conecta tu PC a Smart TV, celular a monitor o computadora a computadora. Sin cables, sin registros y sin instalar programas.</p>
+            </section>
+
+            <section class="cards-grid">
+                <!-- Receiver Card -->
+                <div class="card card-receiver">
+                    <div class="card-glow"></div>
+                    <div class="card-header-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
+                            <polyline points="17 2 12 7 7 2"></polyline>
+                        </svg>
+                    </div>
+                    <h2>Recibir pantalla</h2>
+                    <p>Convierte este dispositivo en pantalla receptora (ideal para Smart TVs, tablets o monitores secundarios).</p>
+                    
+                    <button id="btn-receive" class="btn btn-primary btn-full">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Crear sala de recepción
+                    </button>
+                </div>
+                
+                <!-- Sender Card -->
+                <div class="card card-sender">
+                    <div class="card-glow"></div>
+                    <div class="card-header-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                    </div>
+                    <h2>Transmitir ahora</h2>
+                    <p>Comparte la pantalla de este equipo ingresando el PIN de 4 dígitos generado en la pantalla de destino.</p>
+                    
+                    <div class="sender-form">
+                        <div class="input-pin-wrapper">
+                            <input type="text" id="room-code-input" placeholder="0000" maxlength="4" pattern="[0-9]*" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <button id="btn-send" class="btn btn-secondary">
+                                Conectar
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </button>
+                        </div>
+                        <label class="audio-toggle-label">
+                            <input type="checkbox" id="chk-audio" checked>
+                            <span class="checkbox-custom"></span>
+                            <span>Transmitir audio del sistema / pestaña</span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Bar -->
+            <footer class="features-bar">
+                <div class="feature-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <span>Cifrado P2P punto a punto</span>
+                </div>
+                <div class="feature-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+                    <span>Ultra baja latencia (&lt;100ms)</span>
+                </div>
+                <div class="feature-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+                    <span>Audio HD estéreo</span>
+                </div>
+            </footer>
+        </main>
+
+        <!-- Active Room / Video View -->
+        <main id="room-view" class="view hidden">
+            <div class="room-container">
+                <div class="room-topbar">
+                    <div class="room-meta">
+                        <div class="status-indicator-pulse"></div>
+                        <div class="room-code-tag">
+                            <span class="room-tag-label">Código de Sala:</span>
+                            <span id="display-room-code" class="room-code-highlight">----</span>
+                        </div>
+                        <button id="btn-copy-code" class="btn-copy" title="Copiar código al portapapeles">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            <span>Copiar PIN</span>
+                        </button>
+                        <button id="btn-share-link" class="btn-copy" title="Copiar enlace de conexión directa">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                            </svg>
+                            <span>Copiar Enlace</span>
+                        </button>
+                    </div>
+
+                    <div class="room-actions">
+                        <button id="btn-fullscreen" class="btn-control" title="Pantalla Completa (F)">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+                            </svg>
+                            <span>Pantalla Completa</span>
+                        </button>
+                        <button id="btn-pip" class="btn-control" title="Picture-in-Picture">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                <rect x="12" y="9" width="8" height="6" rx="1" fill="currentColor"></rect>
+                            </svg>
+                        </button>
+                        <button id="btn-leave" class="btn btn-danger-ghost">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                            </svg>
+                            <span>Desconectar</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Video Stage / Canvas -->
+                <div id="video-wrapper" class="video-stage">
+                    <!-- Overlay while waiting for peer -->
+                    <div id="status-message" class="waiting-overlay">
+                        <div class="spinner-ring"></div>
+                        <h3 id="status-title">Esperando dispositivo emisor...</h3>
+                        <p id="status-text">Ingresa el código <strong id="status-room-code" class="text-mono">----</strong> en el dispositivo que va a compartir pantalla.</p>
+                        
+                        <!-- Quick instructions box -->
+                        <div class="instructions-card">
+                            <div class="step-line"><span class="step-num">1</span> Abre esta misma web en tu celular o PC.</div>
+                            <div class="step-line"><span class="step-num">2</span> En "Transmitir ahora", escribe el código <strong id="step-code">----</strong>.</div>
+                            <div class="step-line"><span class="step-num">3</span> Acepta los permisos de pantalla y audio para comenzar.</div>
+                        </div>
+                    </div>
+
+                    <!-- Unmute Audio Prompt (if browser blocked autoplay) -->
+                    <button id="btn-unmute-overlay" class="unmute-banner hidden">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                        </svg>
+                        <span>El audio está silenciado. Haz clic aquí para activar el sonido.</span>
+                    </button>
+
+                    <!-- Stream Video Player -->
+                    <video id="remote-video" autoplay playsinline></video>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

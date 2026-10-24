@@ -1,0 +1,26 @@
+{
+  "name": "castweb",
+  "version": "1.1.0",
+  "description": "Ultra-low latency peer-to-peer screen & audio mirroring web application powered by WebRTC and WebSockets.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "webrtc",
+    "screen-mirroring",
+    "p2p",
+    "streaming",
+    "audio-sharing",
+    "socket.io",
+    "express",
+    "display-media"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2",
+    "socket.io": "^4.7.5"
+  }
+}
