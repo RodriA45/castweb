@@ -83,12 +83,14 @@ async function initNetworkInfo() {
         const res = await fetch('/api/network-info');
         if (res.ok) {
             networkInfo = await res.json();
-            if (networkInfo && networkInfo.networkUrl) {
+            if (networkInfo && networkInfo.networkUrl && networkIpDisplay) {
                 networkIpDisplay.textContent = `${networkInfo.ip}:${networkInfo.port}`;
             }
         }
     } catch (e) {
-        networkIpDisplay.textContent = window.location.host;
+        if (networkIpDisplay) {
+            networkIpDisplay.textContent = window.location.host;
+        }
     }
 }
 

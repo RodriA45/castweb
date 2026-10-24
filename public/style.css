@@ -807,14 +807,7 @@ video#remote-video.active {
     }
 
     .app-header {
-        flex-direction: column;
-        align-items: flex-start;
         padding-bottom: 2rem;
-    }
-
-    .network-badge {
-        width: 100%;
-        justify-content: space-between;
     }
 
     .room-topbar {
@@ -827,3 +820,31 @@ video#remote-video.active {
         justify-content: space-between;
     }
 }
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.app-footer {
+    margin-top: auto;
+    padding-top: 3rem;
+    padding-bottom: 1.5rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+.author-link {
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+}
+
+.author-link:hover {
+    color: #a5b4fc;
+    text-shadow: 0 0 16px var(--indigo-glow);
+    background: rgba(99, 102, 241, 0.12);
+}
+
